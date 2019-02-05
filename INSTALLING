@@ -1,0 +1,28 @@
+qotdserver 1.0
+Copyright (C) 2019 Richard Knight
+
+
+Run the usuals:
+    make
+    make install (as root)
+
+This will compile and install qotdserver to /usr/sbin/qotdserver, along with 
+the default config at /etc/qotdserver.conf
+
+A postgresql database should be created and then create_table.sql executed 
+within. A specific user with permissions to select from the quote table should 
+be set up, for example with the following commands:
+        
+    CREATE USER qotdserver ENCRYPTED PASSWORD 'db_password';
+    GRANT SELECT ON quote TO qotdserver;
+
+This creates the database with a couple of thousand example quotes. In order to
+change/add quotes, refer to README.
+
+Edit /etc/qotdserver.conf, changing the parameters in the database section to
+reflect the postgresql account.
+
+The day parameter in the general section specifies the mode of operation as an
+integer, which can be:
+    0 : New quote on connection
+    1 : New quote each day (reset at 00:00)

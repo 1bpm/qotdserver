@@ -1,0 +1,34 @@
+qotdserver 1.0
+Copyright (C) 2019 Richard Knight
+
+
+Implementation of RFC865: TCP quote of the day server, using a postgresql 
+database for quote retrieval and threaded connection handling.
+
+
+
+EXAMPLE QUOTES
+A couple of thousand quotes are included in the create_db.sql script. These 
+have been scraped from some websites and in general contain a lot of profanity,
+potentially transgressive content and edginess. If that's a problem, don't
+use them.
+
+
+
+CHANGING / ADDING QUOTES
+When installed, the database table used features three notable columns: quote,
+author and source. Quote must always be present, but author and source are
+optional.
+Insert new quotes to the database with a statement such as the following:
+
+    INSERT INTO quote (quote, author, source, created)
+    VALUES ('Yes, it is Friday', 'T. Westwood', 'The Ether', current_timestamp);
+
+created and the value current_timestamp are optional and currently just exist
+to log when a new quote was inserted to the database.    
+ 
+
+INIT
+There is no init script at the moment so you will need to create your own, 
+add to rc.local (or similar), or start manually.
+
